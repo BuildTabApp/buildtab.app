@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BuildTab — Track the real cost of your hobby projects</title>
+<meta name="description" content="BuildTab is an iOS app that helps makers track the true cost of their projects. Calculate partial material usage, set budgets, and see where your money goes — project by project.">
+<meta name="keywords" content="hobby cost tracker, project cost tracker, woodworking expenses, 3D printing costs, maker budget, craft supplies tracker, material usage calculator, hobby budget app, iOS">
+<link rel="canonical" href="https://buildtab.app/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://buildtab.app/">
+<meta property="og:title" content="BuildTab — Track the real cost of your hobby projects">
+<meta property="og:description" content="Track materials, calculate partial usage, and see exactly where your money goes — project by project. Built for woodworkers, 3D printers, knitters, and every kind of maker.">
+<meta property="og:image" content="https://buildtab.app/og-image.png">
+<meta property="og:site_name" content="BuildTab">
+<meta property="og:locale" content="en_AU">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BuildTab — Track the real cost of your hobby projects">
+<meta name="twitter:description" content="Track materials, calculate partial usage, and see where your money goes. Built for makers.">
+<meta name="twitter:image" content="https://buildtab.app/og-image.png">
+
+<!-- Apple Smart App Banner (replace with your App Store ID at launch) -->
+<!-- <meta name="apple-itunes-app" content="app-id=YOUR_APP_ID"> -->
+
+<!-- Favicon (replace with real favicon files) -->
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+<!-- Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "BuildTab",
+  "operatingSystem": "iOS",
+  "applicationCategory": "FinanceApplication",
+  "description": "Track the true cost of your hobby projects. Calculate partial material usage, set budgets, and see where your money goes.",
+  "url": "https://buildtab.app",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "AUD",
+    "description": "Free to download with optional one-time Pro upgrade"
+  },
+  "featureList": [
+    "Partial material usage calculation",
+    "Materials library with saved prices",
+    "Per-project budget tracking",
+    "CSV export",
+    "iCloud sync across devices",
+    "Hobby category organisation"
+  ]
+}</script>
+
+<!-- Self-hosted fonts (no third-party requests) -->
+<style>
+  @font-face {
+    font-family: 'DM Sans';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('/fonts/DMSans-Regular.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'DM Sans';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('/fonts/DMSans-Medium.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'DM Sans';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('/fonts/DMSans-Bold.woff2') format('woff2');
+  }
+</style>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --charcoal: #2D2D2D;
+    --charcoal-light: #3A3A3C;
+    --charcoal-lighter: #48484A;
+    --amber: #E8A33C;
+    --amber-bright: #F0B95A;
+    --amber-glow: rgba(232,163,60,0.12);
+    --amber-glow-strong: rgba(232,163,60,0.2);
+    --text-primary: #F2F2F7;
+    --text-secondary: #A1A1A6;
+    --text-tertiary: #6B6B70;
+    --surface: #353537;
+    --border: #48484A;
+  }
+
+  html { font-size: 16px; }
+
+  body {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    background: var(--charcoal);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 20px 32px;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .nav-logo svg { flex-shrink: 0; }
+
+  .nav-wordmark {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--text-primary);
+    line-height: 1;
+  }
+  .nav-wordmark span { color: var(--amber-bright); }
+
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--amber);
+    color: var(--charcoal);
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .nav-cta:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(232,163,60,0.3);
+  }
+  .nav-cta svg { width: 16px; height: 16px; }
+
+  /* ── HERO ── */
+  .hero {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 48px 32px 24px;
+    text-align: center;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--amber-glow);
+    color: var(--amber-bright);
+    font-size: 13px;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(232,163,60,0.15);
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background: var(--amber);
+    border-radius: 50%;
+  }
+
+  h1 {
+    font-size: clamp(36px, 5vw, 58px);
+    font-weight: 700;
+    line-height: 1.08;
+    letter-spacing: -1.5px;
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    animation: fadeUp 0.6s ease 0.1s both;
+  }
+
+  h1 em {
+    font-style: normal;
+    color: var(--amber-bright);
+    position: relative;
+  }
+
+  h1 em::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 2px;
+    width: 100%;
+    height: 3px;
+    background: var(--amber);
+    opacity: 0.4;
+    border-radius: 2px;
+  }
+
+  .hero-sub {
+    font-size: 18px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 480px;
+    margin: 0 auto 32px;
+    animation: fadeUp 0.6s ease 0.2s both;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 12px;
+    animation: fadeUp 0.6s ease 0.3s both;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--amber);
+    color: var(--charcoal);
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 28px rgba(232,163,60,0.35);
+  }
+  .btn-primary svg { width: 18px; height: 18px; }
+
+  .hero-pricing {
+    font-size: 14px;
+    color: var(--text-tertiary);
+    animation: fadeUp 0.6s ease 0.4s both;
+  }
+
+  /* ── THREE PHONES ── */
+  .phones-section {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 48px 32px 64px;
+    animation: fadeUp 0.8s ease 0.4s both;
+  }
+
+  .phones-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+    align-items: start;
+  }
+
+  .phone-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .phone-label {
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-align: center;
+    letter-spacing: -0.2px;
+  }
+  .phone-label strong {
+    display: block;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.5px;
+    margin-bottom: 4px;
+  }
+
+  .phone {
+    width: 100%;
+    max-width: 240px;
+    background: #000;
+    border-radius: 32px;
+    border: 3px solid var(--charcoal-lighter);
+    box-shadow:
+      0 2px 8px rgba(0,0,0,0.2),
+      0 12px 40px rgba(0,0,0,0.3),
+      0 0 80px rgba(232,163,60,0.06);
+    overflow: hidden;
+  }
+
+  .phone img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* ── TRUST STRIP ── */
+  .trust-strip {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 32px 56px;
+    animation: fadeUp 0.6s ease 0.5s both;
+  }
+
+  .trust-row {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    justify-content: center;
+    gap: 32px;
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .trust-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--surface);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid var(--border);
+  }
+
+  .trust-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .trust-text {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+
+  .trust-text small {
+    display: block;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--text-tertiary);
+  }
+
+  /* ── FEATURES ── */
+  .features-strip {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 0 32px 64px;
+  }
+
+  .features-heading {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+
+  .features-heading h2 {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.8px;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+
+  .features-heading p {
+    font-size: 16px;
+    color: var(--text-secondary);
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .feature-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    transition: transform 0.2s, border-color 0.2s;
+    animation: fadeUp 0.6s ease calc(0.6s + var(--i, 0) * 0.1s) both;
+  }
+  .feature-card:hover {
+    transform: translateY(-2px);
+    border-color: rgba(232,163,60,0.3);
+  }
+
+  .feature-icon {
+    width: 40px;
+    height: 40px;
+    background: var(--amber-glow);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 14px;
+    border: 1px solid rgba(232,163,60,0.15);
+  }
+
+  .feature-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+    letter-spacing: -0.2px;
+  }
+
+  .feature-desc {
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 24px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-text {
+    font-size: 13px;
+    color: var(--text-tertiary);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    color: var(--text-tertiary);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--amber-bright); }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 860px) {
+    .hero { padding: 32px 24px 16px; }
+    .phones-section { padding: 32px 24px 48px; }
+    .phones-row {
+      grid-template-columns: 1fr;
+      gap: 40px;
+      max-width: 300px;
+      margin: 0 auto;
+    }
+    .trust-row { grid-template-columns: 1fr 1fr; gap: 20px; }
+    .features-grid { grid-template-columns: 1fr; }
+    footer {
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .trust-row { grid-template-columns: 1fr; }
+  }
+
+  @media (min-width: 861px) and (max-width: 1024px) {
+    .phones-row { gap: 20px; }
+    .phone { max-width: 220px; }
+    .trust-row { grid-template-columns: 1fr 1fr; gap: 20px; justify-content: start; }
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header>
+<nav aria-label="Main navigation">
+  <a href="/" class="nav-logo" aria-label="BuildTab home">
+    <svg width="32" height="32" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="8" y="62" width="64" height="7" rx="3" fill="#FFFFFF" opacity="0.12"/>
+      <rect x="5" y="52" width="64" height="7" rx="3" fill="#FFFFFF" opacity="0.22"/>
+      <rect x="10" y="42" width="64" height="7" rx="3" fill="#FFFFFF" opacity="0.36"/>
+      <rect x="6" y="32" width="64" height="7" rx="3" fill="#FFFFFF" opacity="0.55"/>
+      <rect x="8" y="22" width="64" height="7" rx="3" fill="#F0B95A"/>
+    </svg>
+    <div class="nav-wordmark">Build<span>Tab</span></div>
+  </a>
+  <a href="#" class="nav-cta">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83"/><path d="M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11"/></svg>
+    Download for iOS
+  </a>
+</nav>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">Built for makers</div>
+  <h1>Know what your projects <em>really</em> cost</h1>
+  <p class="hero-sub">Track materials, calculate partial usage, and see exactly where your money goes — project by project.</p>
+  <div class="hero-actions">
+    <a href="#" class="btn-primary">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83"/><path d="M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11"/></svg>
+      Download for iOS
+    </a>
+  </div>
+  <p class="hero-pricing">Free to try · One-time upgrade to unlock everything · No subscription</p>
+</section>
+
+<!-- THREE PHONES -->
+<section class="phones-section">
+  <div class="phones-row">
+
+    <!-- Phone 1: Dashboard -->
+    <div class="phone-col">
+      <div class="phone-label">
+        <strong>See where your money goes</strong>
+        All your projects, one dashboard
+      </div>
+      <div class="phone">
+        <img src="images/screenshot-dashboard.png" alt="BuildTab dashboard showing project costs, budget tracking, and monthly spending" width="480" height="1043" loading="lazy">
+      </div>
+    </div>
+
+    <!-- Phone 2: Add Expense (partial usage) -->
+    <div class="phone-col">
+      <div class="phone-label">
+        <strong>Track partial usage</strong>
+        "200g of a 1kg spool" — done
+      </div>
+      <div class="phone">
+        <img src="images/screenshot-expense-pla.png" alt="BuildTab expense form showing partial usage calculation — 0.2kg of 1kg at $25 equals $5" width="480" height="1043" loading="lazy">
+      </div>
+    </div>
+
+    <!-- Phone 3: Project Detail -->
+    <div class="phone-col">
+      <div class="phone-label">
+        <strong>Stay on budget</strong>
+        Every expense, every project
+      </div>
+      <div class="phone">
+        <img src="images/screenshot-project-detail.png" alt="BuildTab project detail showing epoxy river serving board with budget progress and expense list" width="480" height="1043" loading="lazy">
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<section class="trust-strip">
+  <div class="trust-row">
+    <div class="trust-item">
+      <div class="trust-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F0B95A" stroke-width="2" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/><line x1="12" y1="16" x2="12" y2="19"/></svg>
+      </div>
+      <div class="trust-text">No account needed<small>Open the app and start tracking</small></div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F0B95A" stroke-width="2" stroke-linecap="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1" fill="#F0B95A"/><line x1="2" y1="2" x2="22" y2="22"/></svg>
+      </div>
+      <div class="trust-text">Works offline<small>No wifi in the workshop? No problem</small></div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F0B95A" stroke-width="2" stroke-linecap="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+      </div>
+      <div class="trust-text">Your data, your device<small>Nothing leaves your phone</small></div>
+    </div>
+    <div class="trust-item">
+      <div class="trust-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#F0B95A" stroke-width="2" stroke-linecap="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+      </div>
+      <div class="trust-text">One-time purchase<small>Pay once, no subscription</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-strip">
+  <div class="features-heading">
+    <h2>Everything you need, nothing you don't</h2>
+    <p>Built for the way makers actually work</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card" style="--i: 0;">
+      <div class="feature-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F0B95A" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      </div>
+      <div class="feature-title">Partial usage</div>
+      <div class="feature-desc">Used half a sheet of plywood? A third of a spool? BuildTab calculates the real cost automatically.</div>
+    </div>
+    <div class="feature-card" style="--i: 1;">
+      <div class="feature-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F0B95A" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
+      </div>
+      <div class="feature-title">Materials library</div>
+      <div class="feature-desc">Save your go-to materials with default prices. Adding expenses takes seconds, not minutes.</div>
+    </div>
+    <div class="feature-card" style="--i: 2;">
+      <div class="feature-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F0B95A" stroke-width="2" stroke-linecap="round"><path d="M3 3v18h18"/><path d="M7 16l4-4 4 4 5-6"/></svg>
+      </div>
+      <div class="feature-title">Budget tracking</div>
+      <div class="feature-desc">Set a budget per project and watch your spending in real time. No more surprise totals.</div>
+    </div>
+    <div class="feature-card" style="--i: 3;">
+      <div class="feature-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F0B95A" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+      </div>
+      <div class="feature-title">CSV export</div>
+      <div class="feature-desc">Export any project to a spreadsheet. Hand it to your accountant or keep it for your records.</div>
+    </div>
+    <div class="feature-card" style="--i: 4;">
+      <div class="feature-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F0B95A" stroke-width="2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </div>
+      <div class="feature-title">Works on iPhone &amp; iPad</div>
+      <div class="feature-desc">A native app built for both devices. Upgrade to Pro to sync your projects across them with iCloud.</div>
+    </div>
+    <div class="feature-card" style="--i: 5;">
+      <div class="feature-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F0B95A" stroke-width="2" stroke-linecap="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+      </div>
+      <div class="feature-title">Hobby categories</div>
+      <div class="feature-desc">Woodworking, 3D printing, sewing, leather, electronics — organise projects by what you make.</div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-text">&copy; 2026 BuildTab</div>
+  <ul class="footer-links">
+    <li><a href="/privacy">Privacy</a></li>
+    <li><a href="/support">Support</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>

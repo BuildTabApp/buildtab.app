@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Support — BuildTab</title>
+<meta name="description" content="Get help with BuildTab. FAQs about partial usage, iCloud sync, restoring purchases, and more.">
+<link rel="canonical" href="https://buildtab.app/support">
+<link rel="icon" type="image/png" href="/favicon.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+  @font-face {
+    font-family: 'DM Sans';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: url('/fonts/DMSans-Regular.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'DM Sans';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: url('/fonts/DMSans-Medium.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'DM Sans';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: url('/fonts/DMSans-Bold.woff2') format('woff2');
+  }
+</style>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --charcoal: #2D2D2D;
+    --charcoal-light: #3A3A3C;
+    --charcoal-lighter: #48484A;
+    --amber: #E8A33C;
+    --amber-bright: #F0B95A;
+    --amber-glow: rgba(232,163,60,0.12);
+    --text-primary: #F2F2F7;
+    --text-secondary: #A1A1A6;
+    --text-tertiary: #6B6B70;
+    --surface: #353537;
+    --border: #48484A;
+  }
+
+  html { font-size: 16px; }
+
+  body {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    background: var(--charcoal);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 20px 32px;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .nav-wordmark {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: var(--text-primary);
+    line-height: 1;
+  }
+  .nav-wordmark span { color: var(--amber-bright); }
+
+  .nav-back {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--amber-bright);
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .nav-back:hover { opacity: 0.8; }
+
+  main {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 48px 32px 80px;
+  }
+
+  h1 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -1px;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+    line-height: 1.5;
+  }
+
+  /* Contact card */
+  .contact-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 48px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .contact-icon {
+    width: 44px;
+    height: 44px;
+    background: var(--amber-glow);
+    border: 1px solid rgba(232,163,60,0.15);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .contact-info h2 {
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .contact-info p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 0;
+  }
+
+  .contact-info a {
+    color: var(--amber-bright);
+    text-decoration: none;
+  }
+  .contact-info a:hover { text-decoration: underline; }
+
+  .response-note {
+    font-size: 13px;
+    color: var(--text-tertiary);
+    margin-top: 8px;
+  }
+
+  /* FAQ */
+  .faq-heading {
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+    margin-bottom: 20px;
+  }
+
+  .faq-item {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 8px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .faq-item:hover {
+    border-color: rgba(232,163,60,0.3);
+  }
+
+  .faq-question {
+    width: 100%;
+    background: var(--surface);
+    border: none;
+    padding: 16px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-primary);
+    text-align: left;
+    transition: background 0.2s;
+  }
+
+  .faq-question:hover {
+    background: var(--charcoal-light);
+  }
+
+  .faq-chevron {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    transition: transform 0.2s;
+    color: var(--text-tertiary);
+  }
+
+  .faq-item.open .faq-chevron {
+    transform: rotate(180deg);
+    color: var(--amber-bright);
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .faq-answer-inner {
+    padding: 0 20px 16px;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  .faq-answer-inner p {
+    margin-bottom: 8px;
+  }
+
+  .faq-answer-inner p:last-child {
+    margin-bottom: 0;
+  }
+
+  .faq-answer-inner strong {
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  /* Divider */
+  .section-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 48px 0;
+  }
+
+  /* Still stuck */
+  .still-stuck {
+    text-align: center;
+    padding: 32px 0;
+  }
+
+  .still-stuck h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .still-stuck p {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+  }
+
+  .still-stuck a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--amber);
+    color: var(--charcoal);
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .still-stuck a:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px rgba(232,163,60,0.3);
+    text-decoration: none;
+  }
+
+  footer {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 24px 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-text {
+    font-size: 13px;
+    color: var(--text-tertiary);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+  }
+
+  .footer-links a {
+    font-size: 13px;
+    color: var(--text-tertiary);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--amber-bright); }
+
+  @media (max-width: 600px) {
+    main { padding: 32px 20px 60px; }
+    h1 { font-size: 26px; }
+    .contact-section { flex-direction: column; gap: 12px; }
+    footer {
+      flex-direction: column;
+      gap: 12px;
+      text-align: center;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+<nav aria-label="Main navigation">
+  <a href="/" class="nav-logo" aria-label="BuildTab home">
+    <svg width="32" height="32" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect x="8" y="62" width="64" height="7" rx="3" fill="#FFFFFF" opacity="0.12"/>
+      <rect x="5" y="52" width="64" height="7" rx="3" fill="#FFFFFF" opacity="0.22"/>
+      <rect x="10" y="42" width="64" height="7" rx="3" fill="#FFFFFF" opacity="0.36"/>
+      <rect x="6" y="32" width="64" height="7" rx="3" fill="#FFFFFF" opacity="0.55"/>
+      <rect x="8" y="22" width="64" height="7" rx="3" fill="#F0B95A"/>
+    </svg>
+    <div class="nav-wordmark">Build<span>Tab</span></div>
+  </a>
+  <a href="/" class="nav-back">&larr; Back to home</a>
+</nav>
+</header>
+
+<main>
+  <h1>Support</h1>
+  <p class="subtitle">BuildTab is built and maintained by one person. I'm here to help — it just might take a day or two.</p>
+
+  <div class="contact-section">
+    <div class="contact-icon">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F0B95A" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+    </div>
+    <div class="contact-info">
+      <h2>Email support</h2>
+      <p><a href="/cdn-cgi/l/email-protection#0e7d7b7e7e617c7a4e6c7b67626a7a6f6c206f7e7e"><span class="__cf_email__" data-cfemail="40333530302f3234002235292c243421226e213030">[email&#160;protected]</span></a></p>
+      <p class="response-note">I typically respond within 1–2 business days.</p>
+    </div>
+  </div>
+
+  <h2 class="faq-heading">Frequently asked questions</h2>
+
+  <div class="faq-item">
+    <button class="faq-question" onclick="toggleFaq(this)">
+      How does partial usage work?
+      <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+        <p>When adding an expense, you enter the total amount you purchased (e.g. 1kg of filament for $25) and how much you actually used on this project (e.g. 200g). BuildTab automatically calculates the cost: 200g &divide; 1000g &times; $25 = $5.00.</p>
+        <p>This way you only track what you actually spent on each project, not the full price of materials you'll use across multiple builds.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" onclick="toggleFaq(this)">
+      How do I restore my Pro purchase?
+      <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+        <p>Go to <strong>Settings &rarr; Restore purchases</strong>. Make sure you're signed into the same Apple ID you used for the original purchase. Your Pro features will be restored automatically.</p>
+        <p>If you're having trouble, check that your internet connection is active and try again. If it still doesn't work, email me and I'll help sort it out.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" onclick="toggleFaq(this)">
+      How do I enable iCloud sync?
+      <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+        <p>iCloud sync is a Pro feature. After upgrading, go to <strong>Settings &rarr; iCloud sync</strong> and toggle it on. Your projects and materials will sync across all devices signed into the same Apple ID.</p>
+        <p>Make sure iCloud is enabled for BuildTab in your device's <strong>Settings &rarr; Apple ID &rarr; iCloud &rarr; Apps using iCloud</strong>.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" onclick="toggleFaq(this)">
+      How do I export my data?
+      <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+        <p>Open a project and tap the share icon, then select <strong>Export as CSV</strong>. You'll get a spreadsheet with all expenses, quantities, costs, and usage amounts for that project. You can share it via email, AirDrop, or save it to Files.</p>
+        <p>CSV export is a Pro feature.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" onclick="toggleFaq(this)">
+      What's the difference between free and Pro?
+      <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+        <p>The free version lets you create up to 3 projects with 25 materials in your library, 1 photo per project, and basic totals. It's enough to try the app and see if it works for you.</p>
+        <p>Pro unlocks unlimited projects, unlimited materials, multiple photos, iCloud sync, CSV export, charts, and budget tracking. It's a one-time purchase — no subscription, no recurring charges.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" onclick="toggleFaq(this)">
+      Can I use BuildTab on iPad?
+      <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+        <p>Yes. BuildTab is a native app that runs on both iPhone and iPad. If you purchase Pro on one device, it's available on all devices signed into the same Apple ID.</p>
+        <p>To keep your data in sync between devices, enable iCloud sync in Settings (Pro feature).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" onclick="toggleFaq(this)">
+      What happens to my data if I delete the app?
+      <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+        <p>All data stored locally on your device is deleted when you remove the app. If you had iCloud sync enabled, your data remains in your iCloud account and will be restored if you reinstall.</p>
+        <p>To permanently delete iCloud data, go to your device's <strong>Settings &rarr; Apple ID &rarr; iCloud &rarr; Manage Storage</strong> and remove BuildTab's data before deleting the app.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question" onclick="toggleFaq(this)">
+      Is my data private?
+      <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="faq-answer">
+      <div class="faq-answer-inner">
+        <p>Yes. BuildTab stores everything on your device. There are no accounts, no analytics, no tracking, and no ads. We never see your data. Read our full <a href="/privacy">privacy policy</a> for details.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <div class="still-stuck">
+    <h2>Still need help?</h2>
+    <p>Can't find what you're looking for? Drop me an email.</p>
+    <a href="/cdn-cgi/l/email-protection#4a393f3a3a25383e0a283f23262e3e2b28642b3a3a">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <span class="__cf_email__" data-cfemail="31424441415e4345715344585d554550531f504141">[email&#160;protected]</span>
+    </a>
+  </div>
+</main>
+
+<footer>
+  <div class="footer-text">&copy; 2026 BuildTab</div>
+  <ul class="footer-links">
+    <li><a href="/privacy">Privacy</a></li>
+    <li><a href="/support">Support</a></li>
+  </ul>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+function toggleFaq(btn) {
+  const item = btn.parentElement;
+  const answer = item.querySelector('.
