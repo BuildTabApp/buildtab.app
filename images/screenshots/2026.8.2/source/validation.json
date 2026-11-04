@@ -1,0 +1,282 @@
+[
+  {
+    "file": "en-US/final/iphone/01-dashboard.png",
+    "width": 1320,
+    "height": 2868,
+    "mode": "RGB",
+    "sha256": "7366eb5fbce30d9f134c7252721b0ccabde1e0db63a8b8990db2973ec64cf5fb"
+  },
+  {
+    "file": "en-US/final/iphone/02-project.png",
+    "width": 1320,
+    "height": 2868,
+    "mode": "RGB",
+    "sha256": "16f83f681cebe1e2bb8ca12673f25edfc9746a5ca972ca94f8c58d57d10e7ed1"
+  },
+  {
+    "file": "en-US/final/iphone/03-expense.png",
+    "width": 1320,
+    "height": 2868,
+    "mode": "RGB",
+    "sha256": "09970d0528df1ee57d51e8f2e68357beae0552c8136f706ba2a773d172f79626"
+  },
+  {
+    "file": "en-US/final/iphone/04-materials.png",
+    "width": 1320,
+    "height": 2868,
+    "mode": "RGB",
+    "sha256": "ebdef92064de0f521f4f421e70ce833a475834a5d8e87480cc5fa278e336c657"
+  },
+  {
+    "file": "en-US/final/iphone/05-time.png",
+    "width": 1320,
+    "height": 2868,
+    "mode": "RGB",
+    "sha256": "44c6c20bd14106dda2eff4abc5771a8c100fb878d345e13a46c170d1151b74d7"
+  },
+  {
+    "file": "en-US/final/iphone/06-pricing.png",
+    "width": 1320,
+    "height": 2868,
+    "mode": "RGB",
+    "sha256": "3fcaff895ce3536eddcd042df21c68a1d46854640ae34192ee48a29f604c121f"
+  },
+  {
+    "file": "en-US/final/iphone/07-spending.png",
+    "width": 1320,
+    "height": 2868,
+    "mode": "RGB",
+    "sha256": "e338179ec8bbad38af507b0c05f38cb335c3cde0463c34a31790d41c73fad42e"
+  },
+  {
+    "file": "en-US/final/iphone/08-expenses.png",
+    "width": 1320,
+    "height": 2868,
+    "mode": "RGB",
+    "sha256": "2b5039fd0b827adbec25f02cbbd61a120ded09f8706bb6203c1509cda902bf15"
+  },
+  {
+    "file": "en-US/final/iphone/09-export.png",
+    "width": 1320,
+    "height": 2868,
+    "mode": "RGB",
+    "sha256": "b0db63dba80f5ee0d34efd2557c640aa45b8958aeb19cb3c2ff89931b87b7efc"
+  },
+  {
+    "file": "en-US/final/iphone/10-dark.png",
+    "width": 1320,
+    "height": 2868,
+    "mode": "RGB",
+    "sha256": "a4c49120a78f3c8fc4cd2487a3f90d46163cf4f2b3e7496074bbb4a38547e325"
+  },
+  {
+    "file": "en-US/final/ipad/01-dashboard.png",
+    "width": 2064,
+    "height": 2752,
+    "mode": "RGB",
+    "sha256": "ebfed1132a9b12461b52ff079c8618773f2665ea0e2d4112056a351438b7d231"
+  },
+  {
+    "file": "en-US/final/ipad/02-project.png",
+    "width": 2064,
+    "height": 2752,
+    "mode": "RGB",
+    "sha256": "32f5757bc52db861f77707b3dd332abc685af8d10bb601b9c627b46778d65702"
+  },
+  {
+    "file": "en-US/final/ipad/03-expense.png",
+    "width": 2064,
+    "height": 2752,
+    "mode": "RGB",
+    "sha256": "1739bad005b145deea5dcad3d425aecef94258effc52fd425ec4e7d17806b040"
+  },
+  {
+    "file": "en-US/final/ipad/04-materials.png",
+    "width": 2064,
+    "height": 2752,
+    "mode": "RGB",
+    "sha256": "1a3078649e629b24946a59f46cc79d6963ead06b374d4ab612b8b07509a866c9"
+  },
+  {
+    "file": "en-US/final/ipad/05-time.png",
+    "width": 2064,
+    "height": 2752,
+    "mode": "RGB",
+    "sha256": "5f8d6ba1ab0f27cbbad4823276c79f47f993ba7a1754c5d7c7f275a1b599ebbf"
+  },
+  {
+    "file": "en-US/final/ipad/06-pricing.png",
+    "width": 2064,
+    "height": 2752,
+    "mode": "RGB",
+    "sha256": "3d2c2d66b53cf0b96923c08ba183ccdbc6c3af0befaeda88858fa63027888c5d"
+  },
+  {
+    "file": "en-US/final/ipad/07-spending.png",
+    "width": 2064,
+    "height": 2752,
+    "mode": "RGB",
+    "sha256": "5f27123bc0e0bf8612cf4a53234ed401a9d2c291dd33fd3ae8a2f94ee84bb648"
+  },
+  {
+    "file": "en-US/final/ipad/08-expenses.png",
+    "width": 2064,
+    "height": 2752,
+    "mode": "RGB",
+    "sha256": "27d2a6720bc6f9c967f73ca547deb2b3e95514bfeec3b4145a97753a33e501e4"
+  },
+  {
+    "file": "en-US/final/ipad/09-export.png",
+    "width": 2064,
+    "height": 2752,
+    "mode": "RGB",
+    "sha256": "dbac7f2ea2df04f883a886540f1bd4f608ec262219dee19c134fc8bb2e887603"
+  },
+  {
+    "file": "en-US/final/ipad/10-dark.png",
+    "width": 2064,
+    "height": 2752,
+    "mode": "RGB",
+    "sha256": "c7d86d1a8bb80ef22a6e13dbf4c65ee0c2aa958d6bbbb0c4bb8a52c59aa0d0ae"
+  },
+  {
+    "file": "en-US/final/duo-inner/01-dashboard.png",
+    "width": 2853,
+    "height": 2007,
+    "mode": "RGB",
+    "sha256": "3a3503c2a0aa79f450784ac3dcb0a1a27d917b7baccfc00184ebb01ca97c7b97"
+  },
+  {
+    "file": "en-US/final/duo-inner/02-project.png",
+    "width": 2853,
+    "height": 2007,
+    "mode": "RGB",
+    "sha256": "79abf0b34e7a146890c5e3bc5707a08c082ef024563a14029d78a25ad9f6c6ee"
+  },
+  {
+    "file": "en-US/final/duo-inner/03-expense.png",
+    "width": 2853,
+    "height": 2007,
+    "mode": "RGB",
+    "sha256": "21f90f1ec737e0cee39a00f053e59dfd91b3dc6be53774f262fae35cf3ed5ba7"
+  },
+  {
+    "file": "en-US/final/duo-inner/04-materials.png",
+    "width": 2853,
+    "height": 2007,
+    "mode": "RGB",
+    "sha256": "f2227ca6299b8af935b1acc78a2e7f7b88eb5d655b1a4046c28aeaa8d0f54b3e"
+  },
+  {
+    "file": "en-US/final/duo-inner/05-time.png",
+    "width": 2853,
+    "height": 2007,
+    "mode": "RGB",
+    "sha256": "dfafdf985b1b5d702a0767d973b21a720c9a95f21add68de429eec9024b83a19"
+  },
+  {
+    "file": "en-US/final/duo-inner/06-pricing.png",
+    "width": 2853,
+    "height": 2007,
+    "mode": "RGB",
+    "sha256": "0895238da7b4d8edbd21b79e1cd190934e801968006b8ccb5dd5142428cc8d5d"
+  },
+  {
+    "file": "en-US/final/duo-inner/07-spending.png",
+    "width": 2853,
+    "height": 2007,
+    "mode": "RGB",
+    "sha256": "aa371f0859197b1a9f709cf97687082c7f8fbc2716e6b887b3b5e208c5ab85b1"
+  },
+  {
+    "file": "en-US/final/duo-inner/08-expenses.png",
+    "width": 2853,
+    "height": 2007,
+    "mode": "RGB",
+    "sha256": "d513d0f77962017aa85e567401a39e67e9f4dc0bb2c587d5edfdce16bb0a0fb9"
+  },
+  {
+    "file": "en-US/final/duo-inner/09-export.png",
+    "width": 2853,
+    "height": 2007,
+    "mode": "RGB",
+    "sha256": "344a4cf1372708fc9822a3bca934161cf46a60643349974dda68aa5290c49a8b"
+  },
+  {
+    "file": "en-US/final/duo-inner/10-dark.png",
+    "width": 2853,
+    "height": 2007,
+    "mode": "RGB",
+    "sha256": "f2b54a0f6d1d64816ae331d618cad9c9f2322ade3fe8ac4ed74a68e9d4ae1592"
+  },
+  {
+    "file": "en-US/final/duo-outer/01-dashboard.png",
+    "width": 1398,
+    "height": 2034,
+    "mode": "RGB",
+    "sha256": "fe9b23cd1569d1878fb369ebcb0c8c0ed1a295aef5ecb2ed39871253fd10caad"
+  },
+  {
+    "file": "en-US/final/duo-outer/02-project.png",
+    "width": 1398,
+    "height": 2034,
+    "mode": "RGB",
+    "sha256": "be85c9f053de6cbcaf8d3618d699e3d644f46df49e294693db225a0efcf348fa"
+  },
+  {
+    "file": "en-US/final/duo-outer/03-expense.png",
+    "width": 1398,
+    "height": 2034,
+    "mode": "RGB",
+    "sha256": "26f26a5ada4b64a5e399f1b5eae74c6328a5970b77a090029b12538c628e130e"
+  },
+  {
+    "file": "en-US/final/duo-outer/04-materials.png",
+    "width": 1398,
+    "height": 2034,
+    "mode": "RGB",
+    "sha256": "e8f439f809e802cb71a80dff1bb8cc6b5eb0aaa2ed11e558218724743332865e"
+  },
+  {
+    "file": "en-US/final/duo-outer/05-time.png",
+    "width": 1398,
+    "height": 2034,
+    "mode": "RGB",
+    "sha256": "1f9c16b40d0b4cc57030310bbdb46932028f1752ba4e0db0bf0acecfce092c14"
+  },
+  {
+    "file": "en-US/final/duo-outer/06-pricing.png",
+    "width": 1398,
+    "height": 2034,
+    "mode": "RGB",
+    "sha256": "c763bcbe637411cac6edccf601c8a09a6bc0d1e5d5e8a1400e9e3953c2fd2cdf"
+  },
+  {
+    "file": "en-US/final/duo-outer/07-spending.png",
+    "width": 1398,
+    "height": 2034,
+    "mode": "RGB",
+    "sha256": "5fd335b9a2de32456fabaae259c52cd85d986dafa32087f3404b57fd883bf724"
+  },
+  {
+    "file": "en-US/final/duo-outer/08-expenses.png",
+    "width": 1398,
+    "height": 2034,
+    "mode": "RGB",
+    "sha256": "2159ee150b760c608d43e872b41cb9fe94bfca5f72f22c5bb120c6eae79f3005"
+  },
+  {
+    "file": "en-US/final/duo-outer/09-export.png",
+    "width": 1398,
+    "height": 2034,
+    "mode": "RGB",
+    "sha256": "8e4f89de30b04774fbcfabcebe8d836f32bc9fc53ffa223c191df28b78bb7f41"
+  },
+  {
+    "file": "en-US/final/duo-outer/10-dark.png",
+    "width": 1398,
+    "height": 2034,
+    "mode": "RGB",
+    "sha256": "ba2614579b878fc9c6f57ff20dd008fb9725a0d833f856465ceafca699d99e82"
+  }
+]

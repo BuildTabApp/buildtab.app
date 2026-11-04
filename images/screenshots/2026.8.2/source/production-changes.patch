@@ -1,0 +1,424 @@
+diff --git a/BuildTab.xcodeproj/project.pbxproj b/BuildTab.xcodeproj/project.pbxproj
+index c3d7996..e549e10 100644
+--- a/BuildTab.xcodeproj/project.pbxproj
++++ b/BuildTab.xcodeproj/project.pbxproj
+@@ -734,7 +734,7 @@
+ 				CODE_SIGN_ENTITLEMENTS = BuildTab/BuildTab.entitlements;
+ 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+ 				CODE_SIGN_STYLE = Automatic;
+-				CURRENT_PROJECT_VERSION = 2;
++				CURRENT_PROJECT_VERSION = 3;
+ 				DEVELOPMENT_TEAM = 8459C6B8DZ;
+ 				ENABLE_PREVIEWS = YES;
+ 				GENERATE_INFOPLIST_FILE = YES;
+@@ -752,7 +752,7 @@
+ 					"$(inherited)",
+ 					"@executable_path/Frameworks",
+ 				);
+-				MARKETING_VERSION = 2026.8.1;
++				MARKETING_VERSION = 2026.8.2;
+ 				PRODUCT_BUNDLE_IDENTIFIER = app.buildtab.BuildTab;
+ 				PRODUCT_NAME = "$(TARGET_NAME)";
+ 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+@@ -772,7 +772,7 @@
+ 				CODE_SIGN_ENTITLEMENTS = BuildTab/BuildTab.entitlements;
+ 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+ 				CODE_SIGN_STYLE = Automatic;
+-				CURRENT_PROJECT_VERSION = 2;
++				CURRENT_PROJECT_VERSION = 3;
+ 				DEVELOPMENT_TEAM = 8459C6B8DZ;
+ 				ENABLE_PREVIEWS = YES;
+ 				GENERATE_INFOPLIST_FILE = YES;
+@@ -790,7 +790,7 @@
+ 					"$(inherited)",
+ 					"@executable_path/Frameworks",
+ 				);
+-				MARKETING_VERSION = 2026.8.1;
++				MARKETING_VERSION = 2026.8.2;
+ 				PRODUCT_BUNDLE_IDENTIFIER = app.buildtab.BuildTab;
+ 				PRODUCT_NAME = "$(TARGET_NAME)";
+ 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+diff --git a/BuildTab/Views/ContentView.swift b/BuildTab/Views/ContentView.swift
+index 6402d2d..eb99838 100644
+--- a/BuildTab/Views/ContentView.swift
++++ b/BuildTab/Views/ContentView.swift
+@@ -1,6 +1,7 @@
+ import SwiftUI
+ 
+ struct ContentView: View {
++    @SceneStorage("selectedTab") private var selectedTab = 0
+     @AppStorage(AppConstants.UserDefaultsKeys.hasCompletedOnboarding) private var hasCompletedOnboarding = false
+     @AppStorage(AppConstants.UserDefaultsKeys.appearanceMode) private var appearanceMode = AppConstants.AppearanceMode.system.rawValue
+     
+@@ -19,7 +20,7 @@ struct ContentView: View {
+     var body: some View {
+         Group {
+             if hasCompletedOnboarding {
+-                MainTabView()
++                MainTabView(selectedTab: $selectedTab)
+             } else {
+                 OnboardingView(hasCompletedOnboarding: $hasCompletedOnboarding)
+             }
+@@ -46,35 +47,39 @@ struct ContentView: View {
+ }
+ 
+ struct MainTabView: View {
+-    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
++    @Binding var selectedTab: Int
++    @State private var selectedProject: Project?
+ 
+     var body: some View {
+-        if horizontalSizeClass == .regular {
+-            iPadNavigationView()
++        if #available(iOS 18.0, *) {
++            tabs.tabViewStyle(.sidebarAdaptable)
+         } else {
+-            iPhoneTabView()
++            tabs
+         }
+     }
+-}
+-
+-// MARK: - iPhone Tab View
+ 
+-struct iPhoneTabView: View {
+-    @SceneStorage("selectedTab") private var selectedTab = 0
+-
+-    var body: some View {
++    // Keep the same navigation hierarchy when the window resizes or folds.
++    private var tabs: some View {
+         TabView(selection: $selectedTab) {
+             NavigationStack {
+-                DashboardView()
++                DashboardView(onNavigateToProjects: { selectedTab = 1 })
+             }
+             .tag(0)
+             .tabItem {
+                 Label("Dashboard", systemImage: "chart.bar.xaxis")
+             }
+ 
+-            NavigationStack {
+-                ProjectListView()
++            NavigationSplitView {
++                ProjectListView(selectedProject: $selectedProject)
++                    .navigationSplitViewColumnWidth(min: 240, ideal: 300, max: 380)
++            } detail: {
++                if let project = selectedProject {
++                    ProjectDetailView(project: project)
++                } else {
++                    ContentUnavailableView("Select a project", systemImage: "folder")
++                }
+             }
++            .navigationSplitViewStyle(.balanced)
+             .tag(1)
+             .tabItem {
+                 Label("Projects", systemImage: "folder")
+@@ -99,8 +104,6 @@ struct iPhoneTabView: View {
+     }
+ }
+ 
+-// MARK: - iPad Navigation View
+-
+ enum SidebarItem: String, CaseIterable, Identifiable {
+     case dashboard = "Dashboard"
+     case projects = "Projects"
+@@ -119,93 +122,6 @@ enum SidebarItem: String, CaseIterable, Identifiable {
+     }
+ }
+ 
+-struct iPadNavigationView: View {
+-    @SceneStorage("selectedSidebarItem") private var selectedSidebarRawValue = SidebarItem.dashboard.rawValue
+-    private var selectedSidebarItem: SidebarItem? {
+-        get { SidebarItem(rawValue: selectedSidebarRawValue) }
+-        nonmutating set { selectedSidebarRawValue = newValue?.rawValue ?? SidebarItem.dashboard.rawValue }
+-    }
+-    @State private var selectedProject: Project?
+-
+-    var body: some View {
+-        HStack(spacing: 0) {
+-            // Icon-only sidebar - always visible
+-            IconSidebar(selection: Binding(get: { selectedSidebarItem }, set: { selectedSidebarItem = $0 }))
+-            
+-            Divider()
+-                .ignoresSafeArea()
+-            
+-            // Main content area
+-            if selectedSidebarItem == .projects {
+-                // Two-column layout for projects (list + detail)
+-                NavigationSplitView {
+-                    ProjectListView(selectedProject: $selectedProject)
+-                } detail: {
+-                    if let project = selectedProject {
+-                        ProjectDetailView(project: project)
+-                    } else {
+-                        ContentUnavailableView("Select a project", systemImage: "folder")
+-                    }
+-                }
+-                .navigationSplitViewStyle(.balanced)
+-            } else {
+-                // Single column for other sections
+-                NavigationStack {
+-                    Group {
+-                        switch selectedSidebarItem {
+-                        case .dashboard:
+-                            DashboardView(onNavigateToProjects: {
+-                                selectedSidebarItem = .projects
+-                            })
+-                        case .materials:
+-                            MaterialsLibraryView()
+-                        case .settings:
+-                            SettingsView()
+-                        case .projects, .none:
+-                            ContentUnavailableView("Select a section", systemImage: "sidebar.left")
+-                        }
+-                    }
+-                    .toolbarTitleDisplayMode(.inlineLarge)
+-                }
+-                .id(selectedSidebarItem)
+-            }
+-        }
+-    }
+-}
+-
+-// MARK: - Icon Sidebar
+-
+-struct IconSidebar: View {
+-    @Binding var selection: SidebarItem?
+-    
+-    var body: some View {
+-        VStack(spacing: 8) {
+-            ForEach(SidebarItem.allCases) { item in
+-                Button {
+-                    selection = item
+-                } label: {
+-                    Image(systemName: item.icon)
+-                        .font(.title2)
+-                        .frame(width: 44, height: 44)
+-                        .foregroundStyle(selection == item ? Color.accentColor : .secondary)
+-                        .background(
+-                            RoundedRectangle(cornerRadius: 10)
+-                                .fill(selection == item ? Color.accentColor.opacity(0.15) : Color.clear)
+-                        )
+-                }
+-                .buttonStyle(.plain)
+-                .accessibilityLabel(item.rawValue)
+-            }
+-            
+-            Spacer()
+-        }
+-        .padding(.top, 52)
+-        .padding(.horizontal, 8)
+-        .frame(width: 60)
+-        .background(Color(.secondarySystemBackground))
+-    }
+-}
+-
+ // MARK: - Sidebar View
+ 
+ struct SidebarView: View {
+diff --git a/BuildTab/Views/Dashboard/CategoryBreakdown.swift b/BuildTab/Views/Dashboard/CategoryBreakdown.swift
+index c7d3ff2..f50a96f 100644
+--- a/BuildTab/Views/Dashboard/CategoryBreakdown.swift
++++ b/BuildTab/Views/Dashboard/CategoryBreakdown.swift
+@@ -122,7 +122,8 @@ struct CategoryBreakdown: View {
+                 }
+             }
+         }
+-        .frame(width: chartSize, height: chartSize)
++        .aspectRatio(1, contentMode: .fit)
++        .frame(idealWidth: chartSize, maxWidth: chartSize)
+         .chartOverlay { proxy in
+             GeometryReader { geometry in
+                 Rectangle()
+diff --git a/BuildTab/Views/Dashboard/DashboardView.swift b/BuildTab/Views/Dashboard/DashboardView.swift
+index 9459931..aadecc0 100644
+--- a/BuildTab/Views/Dashboard/DashboardView.swift
++++ b/BuildTab/Views/Dashboard/DashboardView.swift
+@@ -62,7 +62,9 @@ struct DashboardView: View {
+             // Wide layout: Category charts side-by-side with compact charts
+             HStack(alignment: .top, spacing: 20) {
+                 CategoryBreakdown(isPro: storeService.isPro, compact: true)
++                    .frame(minWidth: 280)
+                 MaterialCategoryBreakdown(expenses: allExpenses, isPro: storeService.isPro, compact: true)
++                    .frame(minWidth: 280)
+             }
+             
+             // Narrow layout: Category charts stacked with full-size charts
+@@ -76,14 +78,9 @@ struct DashboardView: View {
+     // MARK: - Summary Cards
+ 
+     private var cardColumns: [GridItem] {
+-        if isRegularWidth {
+-            // iPad: 4 columns (all cards in one row)
+-            return Array(repeating: GridItem(.flexible()), count: 4)
+-        }
+-        // iPhone: 2 columns
+-        return [GridItem(.flexible()), GridItem(.flexible())]
++        [GridItem(.adaptive(minimum: 150), spacing: 16)]
+     }
+-    
++
+     private var formattedTotalHours: String {
+         let doubleValue = NSDecimalNumber(decimal: totalHours).doubleValue
+         if totalHours == 0 {
+diff --git a/BuildTab/Views/Dashboard/MaterialCategoryBreakdown.swift b/BuildTab/Views/Dashboard/MaterialCategoryBreakdown.swift
+index b76dc88..812559c 100644
+--- a/BuildTab/Views/Dashboard/MaterialCategoryBreakdown.swift
++++ b/BuildTab/Views/Dashboard/MaterialCategoryBreakdown.swift
+@@ -130,7 +130,8 @@ struct MaterialCategoryBreakdown: View {
+                 }
+             }
+         }
+-        .frame(width: chartSize, height: chartSize)
++        .aspectRatio(1, contentMode: .fit)
++        .frame(idealWidth: chartSize, maxWidth: chartSize)
+         .chartOverlay { proxy in
+             GeometryReader { geometry in
+                 Rectangle()
+diff --git a/BuildTab/Views/Projects/ProjectListView.swift b/BuildTab/Views/Projects/ProjectListView.swift
+index b09d794..970bb19 100644
+--- a/BuildTab/Views/Projects/ProjectListView.swift
++++ b/BuildTab/Views/Projects/ProjectListView.swift
+@@ -157,7 +157,7 @@ struct ProjectListView: View {
+     // MARK: - Projects List
+     
+     private var projectsList: some View {
+-        List {
++        List(selection: $selectedProject) {
+             // Filter pills
+             ScrollView(.horizontal, showsIndicators: false) {
+                 HStack(spacing: 8) {
+@@ -180,15 +180,15 @@ struct ProjectListView: View {
+             ForEach(filteredProjects) { project in
+                 Group {
+                     if isEmbeddedInSplitView {
+-                        Button {
+-                            selectedProject = project
+-                        } label: {
++                        NavigationLink(value: project) {
+                             ProjectRow(project: project)
+                         }
+                         .buttonStyle(.plain)
+                         .listRowBackground(selectedProject?.id == project.id ? Color.accentColor.opacity(0.15) : nil)
+                     } else {
+-                        NavigationLink(value: project) {
++                        NavigationLink {
++                            ProjectDetailView(project: project)
++                        } label: {
+                             ProjectRow(project: project)
+                         }
+                     }
+@@ -233,9 +233,6 @@ struct ProjectListView: View {
+         }
+         .listStyle(.plain)
+         .listRowSeparatorTint(Color(.separator))
+-        .navigationDestination(for: Project.self) { project in
+-            ProjectDetailView(project: project)
+-        }
+     }
+     
+     // MARK: - Empty State
+diff --git a/BuildTab/Views/Shared/OnboardingView.swift b/BuildTab/Views/Shared/OnboardingView.swift
+index 6aa5507..9f4eed3 100644
+--- a/BuildTab/Views/Shared/OnboardingView.swift
++++ b/BuildTab/Views/Shared/OnboardingView.swift
+@@ -76,25 +76,26 @@ struct OnboardingPage: View {
+     let accentColor: Color
+     
+     var body: some View {
+-        VStack(spacing: 24) {
+-            Spacer()
++        ScrollView {
++            VStack(spacing: 24) {
++                Image(systemName: image)
++                    .font(.system(size: 80))
++                    .foregroundStyle(accentColor)
+             
+-            Image(systemName: image)
+-                .font(.system(size: 80))
+-                .foregroundStyle(accentColor)
++                Text(title)
++                    .font(.title)
++                    .fontWeight(.bold)
+             
+-            Text(title)
+-                .font(.title)
+-                .fontWeight(.bold)
++                Text(description)
++                    .font(.body)
++                    .foregroundStyle(.secondary)
++                    .multilineTextAlignment(.center)
++                    .padding(.horizontal, 32)
+             
+-            Text(description)
+-                .font(.body)
+-                .foregroundStyle(.secondary)
+-                .multilineTextAlignment(.center)
+-                .padding(.horizontal, 32)
+-            
+-            Spacer()
+-            Spacer()
++            }
++            .padding(.vertical, 24)
++            .frame(maxWidth: 600)
++            .frame(maxWidth: .infinity)
+         }
+     }
+ }
+diff --git a/BuildTabTests/AuditRegressionTests.swift b/BuildTabTests/AuditRegressionTests.swift
+index e2e13b1..b6c7737 100644
+--- a/BuildTabTests/AuditRegressionTests.swift
++++ b/BuildTabTests/AuditRegressionTests.swift
+@@ -105,6 +105,40 @@ final class AuditRegressionTests: XCTestCase {
+         XCTAssertFalse(defaults.bool(forKey: AppConstants.UserDefaultsKeys.iCloudSyncEnabled))
+     }
+ 
++    func testResizingPreservesSelectedTabAndNavigationController() async throws {
++        let persistence = PersistenceController(defaults: defaults, inMemory: true)
++        let container = try XCTUnwrap(persistence.container)
++        let host = UIHostingController(rootView: ResizingNavigationHost().modelContainer(container))
++        let scene = try XCTUnwrap(UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }.first)
++        let window = UIWindow(windowScene: scene)
++        window.frame = scene.coordinateSpace.bounds
++        window.rootViewController = host
++        host.traitOverrides.horizontalSizeClass = .compact
++        window.makeKeyAndVisible()
++        defer { window.isHidden = true; window.rootViewController = nil }
++        try await Task.sleep(for: .milliseconds(300))
++
++        func descendants(of controller: UIViewController) -> [UIViewController] {
++            [controller] + controller.children.flatMap { descendants(of: $0) }
++        }
++        let tabs = try XCTUnwrap(descendants(of: host).compactMap { $0 as? UITabBarController }.first)
++        XCTAssertEqual(tabs.selectedIndex, 3)
++        let selected = try XCTUnwrap(tabs.selectedViewController)
++        try await Task.sleep(for: .milliseconds(200))
++        let navigation = try XCTUnwrap(descendants(of: selected).compactMap { $0 as? UINavigationController }.first)
++
++        for sizeClass in [UIUserInterfaceSizeClass.regular, .compact, .regular] {
++            host.traitOverrides.horizontalSizeClass = sizeClass
++            host.view.setNeedsLayout()
++            host.view.layoutIfNeeded()
++            try await Task.sleep(for: .milliseconds(200))
++            let currentTabs = try XCTUnwrap(descendants(of: host).compactMap { $0 as? UITabBarController }.first)
++            XCTAssertTrue(currentTabs === tabs, "Resizing replaced the tab hierarchy")
++            XCTAssertEqual(currentTabs.selectedIndex, 3)
++            XCTAssertTrue(descendants(of: host).contains { $0 === navigation }, "Resizing discarded the navigation stack")
++        }
++    }
++
+     func testPhotoStorageBoundsDimensionsAndBytes() throws {
+         let format = UIGraphicsImageRendererFormat()
+         format.scale = 1
+@@ -152,3 +186,11 @@ final class AuditRegressionTests: XCTestCase {
+         XCTAssertEqual(expense.lineTotal, 2)
+     }
+ }
++
++private struct ResizingNavigationHost: View {
++    @State private var selectedTab = 3
++
++    var body: some View {
++        MainTabView(selectedTab: $selectedTab)
++    }
++}

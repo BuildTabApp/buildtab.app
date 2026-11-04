@@ -1,0 +1,12 @@
+[
+{"route":"dashboard","title":"Your workshop.\nIn full view.","subtitle":"Projects, costs and progress, together."},
+{"route":"project","title":"Every project.\nEvery detail.","subtitle":"Keep the whole build in one place."},
+{"route":"expense","title":"Only count\nwhat you use.","subtitle":"Track partial quantities, down to the last drop."},
+{"route":"materials","title":"Your materials.\nReady to reuse.","subtitle":"Save supplies and their default costs."},
+{"route":"time","title":"Make time\ncount, too.","subtitle":"Log the hours behind every project."},
+{"route":"pricing","title":"Price your work\nwith confidence.","subtitle":"Include labour, overhead and your margin."},
+{"route":"spending","title":"See where\nthe money goes.","subtitle":"Compare material costs with your budget."},
+{"route":"expenses","title":"Every purchase.\nAccounted for.","subtitle":"Keep your project expenses together."},
+{"route":"export","title":"Your numbers.\nBeyond the app.","subtitle":"Export projects, expenses and time as CSV."},
+{"route":"dark","title":"Dark mode.\nBright ideas.","subtitle":"A comfortable view for your next build."}
+]

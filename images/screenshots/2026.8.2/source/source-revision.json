@@ -1,0 +1,6 @@
+{
+  "commit": "bb2afbb834a201fdd5589f383b990956cd2333cf",
+  "working_tree_patch": "production-changes.patch",
+  "version": "2026.8.2",
+  "build": 3
+}
